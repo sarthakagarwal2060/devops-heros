@@ -1,0 +1,1 @@
+Untracked test file used to demonstrate that `git commit -a` ignores newly created, unstaged files.

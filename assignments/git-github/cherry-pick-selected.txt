@@ -1,0 +1,1 @@
+Target file generated within a feature branch commit, designated for selective cherry-picking into the main branch.

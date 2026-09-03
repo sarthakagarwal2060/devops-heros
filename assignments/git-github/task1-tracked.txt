@@ -1,0 +1,2 @@
+Tracked test asset designated to verify automatic staging when executing `git commit -a`.
+Modifications to this file are automatically captured by git commit all.
