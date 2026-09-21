@@ -1,10 +1,10 @@
 # Session 14: Kubernetes Troubleshooting Assignment
 ### `kubectl get pods` Screenshot
 
-![alt text](image-14.png)
+![alt text](image-23.png)
 ### `kubectl get all` Screenshot
 
-![alt text](image-15.png)
+![alt text](image-24.png)
 
 Work through the exercises in order. Run the commands from the repository root:
 
@@ -82,6 +82,7 @@ kubectl describe pod describe-demo
 
 ### Screenshot
 ![alt text](image.png)
+
 ![alt text](image-2.png)
 <!-- Paste the screenshot showing kubectl describe output here. -->
 
@@ -161,6 +162,7 @@ kubectl events --watch
 
 ### Screenshot
 ![alt text](image-5.png)
+
 ![alt text](image-6.png)
 
 <!-- Paste the screenshot showing the Events output here. -->
@@ -197,7 +199,9 @@ kubectl logs crash-demo
 
 <!-- Paste the screenshot showing the broken status, investigation, and fixed status here. -->
 ![alt text](image-7.png)
+
 ![alt text](image-8.png)
+
 ![alt text](image-9.png)
 
 <br><br><br>
@@ -222,6 +226,7 @@ kubectl get pod image-demo
 
 ### Screenshot
 ![alt text](image-10.png)
+
 ![alt text](image-11.png)
 
 <!-- Paste the screenshot showing the image pull error and the fixed Pod here. -->
@@ -249,6 +254,7 @@ kubectl get pod pending-demo
 
 ### Screenshot
 ![alt text](image-12.png)
+
 ![alt text](image-13.png)
 
 <!-- Paste the screenshot showing the Pending reason and the fixed Pod here. -->
@@ -293,6 +299,13 @@ kubectl get endpoints web-service
 ```
 
 ### Screenshot
+![alt text](image-16.png)
+
+![alt text](image-17.png)
+
+![alt text](image-18.png)
+
+![alt text](image-19.png)
 
 <!-- Paste the screenshot showing DNS resolution, Service connectivity, and the endpoint problem here. -->
 
@@ -328,15 +341,22 @@ kubectl get pod project-broken-pod
 kubectl describe pod project-broken-pod
 ```
 
-Answer these questions in your assignment:
+<!-- Answer these questions in your assignment:
 
 1. What is the Pod status?
 2. What is the actual error?
 3. Which command revealed the reason?
 4. What is wrong with the image?
-5. How would you fix it?
+5. How would you fix it? -->
 
 ### Screenshot
+
+![alt text](image-20.png)
+
+![alt text](image-21.png)
+
+![alt text](image-22.png)
+
 
 <!-- Paste the screenshot showing the mini-project investigation here. -->
 
