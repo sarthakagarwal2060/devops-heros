@@ -4,7 +4,7 @@
 ![alt text](image-23.png)
 ### `kubectl get all` Screenshot
 
-![alt text](image-24.png)
+![alt text](image-24.png)`
 
 Work through the exercises in order. Run the commands from the repository root:
 
@@ -12,7 +12,6 @@ Work through the exercises in order. Run the commands from the repository root:
 cd /home/sarthakagarwal/Coding/DeveOps/devops-heros
 ```
 
-After each exercise, paste a screenshot of the terminal output in the space provided.
 
 ## Prerequisites
 
