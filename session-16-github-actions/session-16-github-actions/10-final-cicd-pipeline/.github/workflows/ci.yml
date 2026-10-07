@@ -7,15 +7,19 @@ on:
     branches:
       - main
   workflow_dispatch:
+
 jobs:
   test:
     name: Test Application
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: session-16-github-actions/session-16-github-actions/10-final-cicd-pipeline
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Display Python version
@@ -27,15 +31,19 @@ jobs:
       - name: Run tests
         run: |
           pytest -v
+
   build:
     name: Build Application
     needs: test
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: session-16-github-actions/session-16-github-actions/10-final-cicd-pipeline
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
       - name: Setup Python
-        uses: actions/setup-python@v7
+        uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Build application
@@ -49,14 +57,15 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: calculator-build
-          path: build/
+          path: session-16-github-actions/session-16-github-actions/10-final-cicd-pipeline/build/
+
   security-check:
     name: Security Check
     needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Checkout source code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
       - name: Check for sensitive files
         run: |
           echo "Checking repository for common sensitive files..."
