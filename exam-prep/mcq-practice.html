@@ -1,0 +1,798 @@
+<title>DevOps MCQ Drill</title>
+<style>
+  /* Layout: single-column quiz runner — start screen (class list) → one question per screen → results */
+  :root {
+    --bg: #f3f4f6;
+    --surface: #ffffff;
+    --surface-2: #f8fafc;
+    --fg: #1a1f2b;
+    --muted: #5b6472;
+    --line: #e2e6ec;
+    --accent: #3457d5;
+    --accent-soft: #e7ecfd;
+    --ok: #157a52;
+    --ok-soft: #e3f5ec;
+    --bad: #c2384a;
+    --bad-soft: #fce8ea;
+    --code-bg: #0f1420;
+    --code-fg: #dfe6f1;
+    --shadow: 0 1px 2px rgba(16,22,34,.06), 0 8px 24px rgba(16,22,34,.06);
+    --mono: "IBM Plex Mono", ui-monospace, "SF Mono", Menlo, monospace;
+    --sans: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #0c0f16;
+      --surface: #141a24;
+      --surface-2: #1a212d;
+      --fg: #e8ecf3;
+      --muted: #9aa5b5;
+      --line: #273040;
+      --accent: #7f9bff;
+      --accent-soft: #1e2740;
+      --ok: #5fd3a3;
+      --ok-soft: #13291f;
+      --bad: #ff8a99;
+      --bad-soft: #2d1519;
+      --code-bg: #090d15;
+      --code-fg: #d3dcec;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.35);
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0c0f16;
+    --surface: #141a24;
+    --surface-2: #1a212d;
+    --fg: #e8ecf3;
+    --muted: #9aa5b5;
+    --line: #273040;
+    --accent: #7f9bff;
+    --accent-soft: #1e2740;
+    --ok: #5fd3a3;
+    --ok-soft: #13291f;
+    --bad: #ff8a99;
+    --bad-soft: #2d1519;
+    --code-bg: #090d15;
+    --code-fg: #d3dcec;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 12px 30px rgba(0,0,0,.35);
+    color-scheme: dark;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--sans);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding-inline: 16px;
+    padding-block: 20px 56px;
+  }
+
+  /* --- top bar --- */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .brand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; min-width: 0; }
+  .brand .prompt { font-family: var(--mono); color: var(--accent); font-weight: 600; }
+  .brand h1 {
+    font-size: 1.15rem;
+    margin: 0;
+    font-weight: 600;
+    letter-spacing: -.01em;
+  }
+  .themebtn {
+    flex: none;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--muted);
+    border-radius: 9px;
+    width: 38px; height: 38px;
+    cursor: pointer;
+    font-size: 1rem;
+    display: grid; place-items: center;
+  }
+  .themebtn:hover { color: var(--fg); border-color: var(--accent); }
+
+  /* --- start screen --- */
+  .intro { margin-bottom: 20px; }
+  .intro p { color: var(--muted); margin: 0 0 18px; max-width: 60ch; }
+  .startbtn {
+    width: 100%;
+    border: none;
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--sans);
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 15px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+  }
+  :root[data-theme="dark"] .startbtn, :root:not([data-theme="light"]) .startbtn { color: #0c0f16; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .startbtn { color: #fff; } }
+  .startbtn:hover { filter: brightness(1.06); }
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    color: var(--muted); font-size: .8rem;
+    text-transform: uppercase; letter-spacing: .08em;
+    margin: 22px 0 14px;
+  }
+  .divider::before, .divider::after { content: ""; height: 1px; background: var(--line); flex: 1; }
+
+  .classlist { display: grid; gap: 10px; }
+  .classcard {
+    display: flex; align-items: center; gap: 14px;
+    text-align: left;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: inherit;
+    border-radius: 12px;
+    padding: 13px 15px;
+    cursor: pointer;
+    font: inherit;
+    transition: border-color .12s, transform .06s;
+  }
+  .classcard:hover { border-color: var(--accent); }
+  .classcard:active { transform: translateY(1px); }
+  .classcard .num {
+    flex: none;
+    font-family: var(--mono);
+    font-size: .8rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    border-radius: 8px;
+    padding: 6px 9px;
+    min-width: 40px; text-align: center;
+  }
+  .classcard .ctext { min-width: 0; flex: 1; }
+  .classcard .ctext strong { display: block; font-weight: 600; }
+  .classcard .ctext span { font-size: .82rem; color: var(--muted); }
+  .classcard .tag {
+    flex: none; font-size: .68rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: .05em;
+    color: var(--muted); border: 1px solid var(--line);
+    padding: 3px 7px; border-radius: 999px;
+  }
+  .classcard .count { flex: none; font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+
+  /* --- quiz screen --- */
+  .meta {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 10px; flex-wrap: wrap;
+  }
+  .classbadge {
+    font-family: var(--mono); font-size: .78rem; font-weight: 600;
+    color: var(--accent); background: var(--accent-soft);
+    padding: 5px 10px; border-radius: 999px;
+  }
+  .counter { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+  .bar { height: 6px; background: var(--line); border-radius: 999px; overflow: hidden; margin-bottom: 22px; }
+  .bar > i { display: block; height: 100%; background: var(--accent); border-radius: 999px; transition: width .3s ease; }
+
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 22px;
+    box-shadow: var(--shadow);
+  }
+  .qnum { font-family: var(--mono); font-size: .76rem; color: var(--muted); letter-spacing: .04em; }
+  .question {
+    font-size: 1.12rem; font-weight: 600; margin: 6px 0 4px;
+    text-wrap: balance; letter-spacing: -.01em;
+  }
+  pre.code {
+    font-family: var(--mono); font-size: .82rem; line-height: 1.55;
+    background: var(--code-bg); color: var(--code-fg);
+    padding: 12px 14px; border-radius: 10px;
+    overflow-x: auto; margin: 14px 0 4px;
+  }
+  .options { display: grid; gap: 10px; margin-top: 18px; }
+  .opt {
+    display: flex; align-items: flex-start; gap: 12px;
+    text-align: left; font: inherit; color: inherit;
+    border: 1.5px solid var(--line);
+    background: var(--surface-2);
+    border-radius: 11px;
+    padding: 13px 14px;
+    cursor: pointer;
+    transition: border-color .12s, background .12s;
+  }
+  .opt:hover:not(:disabled) { border-color: var(--accent); }
+  .opt:disabled { cursor: default; }
+  .opt .key {
+    flex: none; font-family: var(--mono); font-weight: 600; font-size: .82rem;
+    width: 24px; height: 24px; border-radius: 6px;
+    display: grid; place-items: center;
+    border: 1px solid var(--line); color: var(--muted);
+  }
+  .opt .label { min-width: 0; flex: 1; }
+  .opt .label code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft); padding: 1px 5px; border-radius: 5px; }
+  .opt.correct { border-color: var(--ok); background: var(--ok-soft); }
+  .opt.correct .key { border-color: var(--ok); background: var(--ok); color: #fff; }
+  .opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+  .opt.wrong .key { border-color: var(--bad); background: var(--bad); color: #fff; }
+  .opt.dim { opacity: .55; }
+
+  .explain {
+    margin-top: 16px; padding: 13px 15px;
+    border-left: 3px solid var(--accent);
+    background: var(--surface-2);
+    border-radius: 0 10px 10px 0;
+    font-size: .92rem;
+  }
+  .explain .verdict { font-weight: 700; margin-right: 6px; }
+  .explain .verdict.ok { color: var(--ok); }
+  .explain .verdict.bad { color: var(--bad); }
+  .explain code { font-family: var(--mono); font-size: .88em; background: var(--accent-soft); padding: 1px 5px; border-radius: 5px; }
+
+  .nav { display: flex; justify-content: space-between; gap: 12px; margin-top: 20px; align-items: center; }
+  .nextbtn {
+    border: none; background: var(--accent); color: #fff;
+    font: inherit; font-weight: 600; padding: 12px 22px;
+    border-radius: 11px; cursor: pointer;
+  }
+  :root[data-theme="dark"] .nextbtn, :root:not([data-theme="light"]) .nextbtn { color: #0c0f16; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .nextbtn { color: #fff; } }
+  .nextbtn:disabled { opacity: .4; cursor: not-allowed; }
+  .nextbtn:not(:disabled):hover { filter: brightness(1.06); }
+  .quitbtn { border: none; background: none; color: var(--muted); font: inherit; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+  .quitbtn:hover { color: var(--fg); }
+  .hint { font-size: .75rem; color: var(--muted); text-align: center; margin-top: 14px; }
+  kbd { font-family: var(--mono); font-size: .72rem; border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 5px; padding: 1px 5px; background: var(--surface); }
+
+  /* --- results --- */
+  .scorehero { text-align: center; padding: 10px 0 6px; }
+  .scorehero .big { font-size: 3rem; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; }
+  .scorehero .pct { font-family: var(--mono); color: var(--muted); }
+  .scorehero .msg { margin-top: 6px; color: var(--muted); }
+  .breakdown { display: grid; gap: 8px; margin-top: 22px; }
+  .brow {
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px;
+    border: 1px solid var(--line); background: var(--surface); border-radius: 11px; padding: 11px 14px;
+  }
+  .brow .bnum { font-family: var(--mono); font-size: .76rem; color: var(--accent); }
+  .brow .bname { min-width: 0; font-weight: 500; font-size: .92rem; }
+  .brow .bscore { font-family: var(--mono); font-size: .85rem; font-variant-numeric: tabular-nums; }
+  .brow .bscore.good { color: var(--ok); }
+  .brow .bscore.mid { color: #b4820e; }
+  .brow .bscore.low { color: var(--bad); }
+  .resultbtns { display: flex; gap: 10px; margin-top: 24px; flex-wrap: wrap; }
+  .resultbtns button { flex: 1; min-width: 160px; border-radius: 11px; padding: 13px; font: inherit; font-weight: 600; cursor: pointer; }
+  .resultbtns .primary { border: none; background: var(--accent); color: #fff; }
+  :root[data-theme="dark"] .resultbtns .primary, :root:not([data-theme="light"]) .resultbtns .primary { color: #0c0f16; }
+  @media (prefers-color-scheme: light) { :root:not([data-theme="dark"]) .resultbtns .primary { color: #fff; } }
+  .resultbtns .ghost { border: 1px solid var(--line); background: var(--surface); color: var(--fg); }
+  .resultbtns .ghost:hover { border-color: var(--accent); }
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <span class="prompt">$</span>
+      <h1>DevOps MCQ Drill</h1>
+    </div>
+    <button class="themebtn" id="themeToggle" title="Toggle light / dark" aria-label="Toggle theme">◐</button>
+  </div>
+
+  <!-- START -->
+  <section id="start">
+    <div class="intro">
+      <p>Multiple-choice practice built from your exam-prep notes — one question at a time, class after class. Take the full run or drill a single topic.</p>
+    </div>
+    <button class="startbtn" id="startAll">Start full drill <span id="allCount" style="opacity:.8;font-weight:500"></span></button>
+    <div class="divider">or pick one class</div>
+    <div class="classlist" id="classList"></div>
+  </section>
+
+  <!-- QUIZ -->
+  <section id="quiz" hidden>
+    <div class="meta">
+      <span class="classbadge" id="classBadge">—</span>
+      <span class="counter" id="counter">0 / 0</span>
+    </div>
+    <div class="bar"><i id="barFill" style="width:0%"></i></div>
+
+    <div class="card">
+      <div class="qnum" id="qNum">Question</div>
+      <div class="question" id="qText">—</div>
+      <pre class="code" id="qCode" hidden></pre>
+      <div class="options" id="options"></div>
+      <div class="explain" id="explain" hidden></div>
+    </div>
+
+    <div class="nav">
+      <button class="quitbtn" id="quitBtn">Quit to menu</button>
+      <button class="nextbtn" id="nextBtn" disabled>Next →</button>
+    </div>
+    <div class="hint">Keys: <kbd>1</kbd>–<kbd>4</kbd> to answer · <kbd>Enter</kbd> for next</div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results" hidden>
+    <div class="scorehero">
+      <div class="big"><span id="scoreNum">0</span><span style="color:var(--muted);font-size:1.4rem">/<span id="scoreTotal">0</span></span></div>
+      <div class="pct" id="scorePct">0%</div>
+      <div class="msg" id="scoreMsg"></div>
+    </div>
+    <div class="breakdown" id="breakdown"></div>
+    <div class="resultbtns">
+      <button class="primary" id="retryBtn">Try again</button>
+      <button class="ghost" id="menuBtn">Back to menu</button>
+    </div>
+  </section>
+</div>
+
+<script>
+// ---- Question bank: one entry per class (session), MCQs only ----
+const DATA = [
+  { id: "01", tag: "MCQ", title: "Linux & Terminal Commands", questions: [
+    { q: "How do you read <code>data.txt</code> inside <code>data1/data2</code> without first changing directory?",
+      opts: ["cat data1/data2/data.txt", "cd data1/data2 then cat data.txt", "cat /data.txt", "read data1 data2 data.txt"], a: 0,
+      e: "A full relative path reaches the file directly — no need to enter each folder." },
+    { q: "In a path, what does <code>..</code> mean?",
+      opts: ["The current folder", "One folder up (the parent)", "Your home folder", "The root of the system"], a: 1,
+      e: "<code>..</code> is the parent folder; <code>.</code> is here, and <code>~</code> is home." },
+    { q: "Which command prints the full path of the folder you are currently in?",
+      opts: ["ls", "cd", "pwd", "whoami"], a: 2,
+      e: "<code>pwd</code> = print working directory." },
+    { q: "After <code>chmod 755 file</code>, what can the owner do?",
+      opts: ["Read only", "Read and write", "Read, write and execute", "Nothing"], a: 2,
+      e: "7 = 4+2+1 = rwx. So 755 gives the owner full rwx, group and others r-x." },
+    { q: "What does the <code>&gt;&gt;</code> operator do?",
+      opts: ["Overwrites a file with the output", "Appends output to the end of a file", "Pipes output to another command", "Reads a file into a variable"], a: 1,
+      e: "<code>&gt;&gt;</code> appends; a single <code>&gt;</code> overwrites the file." },
+    { q: "Which command finds every <code>.txt</code> file under <code>/home</code>?",
+      opts: ["grep -r \".txt\" /home", "find /home -name \"*.txt\"", "ls -r /home/*.txt", "locate /home txt"], a: 1,
+      e: "<code>find</code> searches a tree by name; <code>*</code> matches anything." },
+    { q: "What does the <code>-i</code> flag do in <code>grep -i \"word\" file</code>?",
+      opts: ["Search recursively", "Invert the match", "Ignore upper/lower case", "Show line numbers"], a: 2,
+      e: "<code>-i</code> makes the search case-insensitive." },
+  ]},
+  { id: "02", tag: "Lab", title: "Docker — Build & Run", questions: [
+    { q: "What is the correct build-and-run flow?",
+      opts: ["Image → Dockerfile → Container", "Dockerfile → Image → Container", "Container → Image → Dockerfile", "Dockerfile → Container → Image"], a: 1,
+      e: "Dockerfile --(build)--> Image --(run)--> Container." },
+    { q: "In <code>docker run -d -p 8080:80 app</code>, which number is the port on your computer (the host)?",
+      opts: ["80", "8080", "Both", "Neither — they are container ports"], a: 1,
+      e: "Port mapping is host:container, so 8080 is the host port → 80 inside the container." },
+    { q: "What is the difference between <code>RUN</code> and <code>CMD</code> in a Dockerfile?",
+      opts: ["RUN runs at container start; CMD at build", "RUN runs while building the image; CMD runs when the container starts", "They are identical", "CMD can appear many times, RUN only once"], a: 1,
+      e: "RUN executes during build (e.g. install libs); CMD is the default command when the container starts. Only the last CMD counts." },
+    { q: "Which instruction must be the first line of a Dockerfile?",
+      opts: ["WORKDIR", "COPY", "FROM", "RUN"], a: 2,
+      e: "You always start from a base image, so <code>FROM</code> comes first." },
+    { q: "Does <code>EXPOSE 80</code> actually open the port to the outside world?",
+      opts: ["Yes, it publishes the port", "No — it is documentation only; -p on docker run opens it", "Only if combined with CMD", "Only in Docker Compose"], a: 1,
+      e: "EXPOSE is informational. The real opening is <code>-p host:container</code> at run time." },
+    { q: "What does the <code>-d</code> flag do on <code>docker run</code>?",
+      opts: ["Delete the container when it stops", "Run detached, in the background", "Enable debug logging", "Mount the current directory"], a: 1,
+      e: "<code>-d</code> = detached; you get your terminal back." },
+    { q: "When a container is deleted, how do you make its data survive?",
+      opts: ["Use EXPOSE", "Use a volume ( -v )", "Use --name", "Nothing — data always persists"], a: 1,
+      e: "A volume stores data outside the container so it outlives it." },
+  ]},
+  { id: "03", tag: "Lab", title: "Kubernetes — Apply & Manage", questions: [
+    { q: "What is the smallest unit Kubernetes actually runs?",
+      opts: ["A container", "A Pod", "A Deployment", "A Node"], a: 1,
+      e: "K8s wraps containers in a Pod — the smallest schedulable unit." },
+    { q: "Which four top-level keys does every Kubernetes YAML have?",
+      opts: ["name, image, ports, labels", "apiVersion, kind, metadata, spec", "version, type, data, config", "pod, deployment, service, node"], a: 1,
+      e: "apiVersion, kind, metadata, spec — the same shape for every object." },
+    { q: "In a Deployment, what is the #1 rule that makes it valid?",
+      opts: ["replicas must be odd", "selector.matchLabels must match template.metadata.labels", "image must have a tag", "name must be lowercase"], a: 1,
+      e: "The Deployment finds 'its' pods by label, so the selector must match the pod template labels." },
+    { q: "What is the default Service type?",
+      opts: ["NodePort", "LoadBalancer", "ClusterIP", "ExternalName"], a: 2,
+      e: "ClusterIP — reachable only inside the cluster." },
+    { q: "What is the valid port range for a NodePort?",
+      opts: ["0–1024", "3000–3999", "30000–32767", "8080 only"], a: 2,
+      e: "NodePorts live in 30000–32767." },
+    { q: "Why use a Deployment instead of a bare Pod?",
+      opts: ["It uses less memory", "If a pod dies it recreates it, and it can scale and roll out updates", "It does not need YAML", "It exposes ports automatically"], a: 1,
+      e: "A lone Pod that dies is gone; a Deployment keeps the desired number alive." },
+    { q: "A <code>livenessProbe</code> fails repeatedly. What does Kubernetes do?",
+      opts: ["Keeps the pod out of the Service", "Restarts the container", "Deletes the Deployment", "Nothing — liveness is informational"], a: 1,
+      e: "Liveness failing → restart. (Readiness failing → pulled out of the Service instead.)" },
+  ]},
+  { id: "04", tag: "Lab ⭐", title: "Kubernetes Debugging", questions: [
+    { q: "A pod shows <code>CrashLoopBackOff</code>. Which command most often reveals the real cause?",
+      opts: ["kubectl get pods", "kubectl logs &lt;pod&gt; --previous", "kubectl apply -f", "kubectl scale"], a: 1,
+      e: "The container already crashed, so <code>--previous</code> shows the dead container's final logs." },
+    { q: "What does <code>ImagePullBackOff</code> mean?",
+      opts: ["The app crashed after starting", "Kubernetes can't download the container image", "The pod ran out of memory", "No node has room for the pod"], a: 1,
+      e: "A pull failure — often a typo'd image name/tag or a private image with no login." },
+    { q: "Pods are Running but the Service is unreachable, and <code>kubectl get endpoints</code> is EMPTY. The usual cause?",
+      opts: ["The node is down", "The Service selector labels don't match the Pod labels", "The image tag is wrong", "The namespace was deleted"], a: 1,
+      e: "Empty endpoints = no pods matched the selector. Make the Service selector equal the Pod labels." },
+    { q: "A pod is stuck in <code>Pending</code>. What does that mean?",
+      opts: ["The image is downloading", "Kubernetes can't find a node to place it on", "The app is crashing", "A ConfigMap is missing"], a: 1,
+      e: "Pending = can't schedule — usually not enough CPU/memory, or storage/node rules don't match." },
+    { q: "When you run <code>kubectl describe pod X</code>, where is the most useful information?",
+      opts: ["The Labels section", "The Events at the bottom", "The IP address", "The annotations"], a: 1,
+      e: "The Events list tells you what Kubernetes tried to do and why it failed." },
+    { q: "A pod's status is <code>OOMKilled</code>. The fix?",
+      opts: ["Fix the image name", "Raise the memory limit", "Change the liveness probe", "Delete the Service"], a: 1,
+      e: "OOMKilled = ran out of memory; raise <code>resources.limits.memory</code>." },
+    { q: "A pod shows <code>Running</code> but <code>0/1 READY</code>. What should you check?",
+      opts: ["The image tag", "The readiness probe and the logs", "The NodePort range", "The Deployment replica count"], a: 1,
+      e: "0/1 READY means started but not ready for traffic — look at the readiness probe." },
+  ]},
+  { id: "05", tag: "MCQ + Lab", title: "Shell / Bash Scripting", questions: [
+    { q: "What must the first line of a bash script be?",
+      opts: ["#include bash", "#!/bin/bash", "import bash", "run bash"], a: 1,
+      e: "The shebang <code>#!/bin/bash</code> tells the system which shell to use." },
+    { q: "Which is the correct way to assign a variable in bash?",
+      opts: ["name = \"x\"", "name =\"x\"", "name=\"x\"", "let name = x"], a: 2,
+      e: "No spaces around <code>=</code>. <code>name=\"x\"</code> is right; <code>name = \"x\"</code> is wrong." },
+    { q: "What is the difference between <code>$hostname</code> and <code>$(hostname)</code>?",
+      opts: ["They are the same", "$hostname reads a variable; $(hostname) runs the command", "$(hostname) reads a variable; $hostname runs the command", "Both run the command"], a: 1,
+      e: "<code>$(...)</code> runs a command and substitutes its output; <code>$name</code> reads a variable." },
+    { q: "In a test, what does <code>-lt</code> mean?",
+      opts: ["Less than", "Letter test", "List total", "Last"], a: 0,
+      e: "<code>-lt</code> = less than. (-eq, -ne, -gt, -ge, -le are the others.)" },
+    { q: "You defined a function with <code>show_info() { ... }</code>. How do you call it?",
+      opts: ["show_info()", "call show_info", "show_info", "run show_info()"], a: 2,
+      e: "Call it by name with no parentheses: <code>show_info</code>." },
+    { q: "Which is valid bash syntax?",
+      opts: ["if [$age -lt 0]; then", "if [ $age -lt 0 ]; then", "if ( $age < 0 ) then", "if {$age -lt 0} then"], a: 1,
+      e: "You must put spaces inside the brackets: <code>[ $age -lt 0 ]</code>." },
+    { q: "What does <code>read -p \"Name: \" name</code> do?",
+      opts: ["Prints 'Name:' to a file", "Shows the prompt and stores the typed input in name", "Reads the file named Name", "Repeats the variable name"], a: 1,
+      e: "<code>read</code> pauses for input; <code>-p</code> shows a prompt first." },
+  ]},
+  { id: "06", tag: "MCQ", title: "Git & GitHub", questions: [
+    { q: "Which command turns the current folder into a Git repository?",
+      opts: ["git clone", "git init", "git start", "git new"], a: 1,
+      e: "<code>git init</code> starts tracking the current folder." },
+    { q: "When you run <code>git commit</code>, where does the snapshot go first?",
+      opts: ["Straight to GitHub", "Your local repo (on your computer)", "The staging area", "A branch called origin"], a: 1,
+      e: "A commit saves to your local repo. It only reaches GitHub after <code>git push</code>." },
+    { q: "Which command stages ALL changes for the next commit?",
+      opts: ["git add .", "git stage all", "git commit -a", "git push ."], a: 0,
+      e: "<code>git add .</code> stages everything (the dot = all)." },
+    { q: "<code>git pull</code> is equivalent to which two commands?",
+      opts: ["add + commit", "fetch + merge", "clone + push", "init + remote"], a: 1,
+      e: "Pull downloads (fetch) and then merges the changes." },
+    { q: "What is the standard nickname for the main remote repository?",
+      opts: ["main", "remote", "origin", "github"], a: 2,
+      e: "<code>origin</code> is the conventional name for the primary remote." },
+    { q: "What is the default name of the main branch in new projects?",
+      opts: ["master", "trunk", "main", "default"], a: 2,
+      e: "<code>main</code> (older projects used <code>master</code>)." },
+    { q: "Which file lists what Git should ignore?",
+      opts: [".gitconfig", ".ignore", ".gitignore", "ignore.txt"], a: 2,
+      e: "<code>.gitignore</code> lists paths Git should not track." },
+  ]},
+  { id: "07", tag: "MCQ ⭐", title: "Networking", questions: [
+    { q: "Which class does the address <code>197.23.45.10</code> belong to?",
+      opts: ["Class A", "Class B", "Class C", "Class D"], a: 2,
+      e: "Look at the first octet: 197 is in 192–223 → Class C." },
+    { q: "How many usable hosts does a <code>/24</code> network provide?",
+      opts: ["256", "254", "255", "253"], a: 1,
+      e: "8 host bits → 2⁸ = 256, minus 2 reserved = 254 usable." },
+    { q: "Why do you subtract 2 when counting usable hosts?",
+      opts: ["For the router and the switch", "For the network address and the broadcast address", "For DNS and DHCP", "For IPv4 and IPv6"], a: 1,
+      e: "The all-zeros (network) and all-ones (broadcast) host addresses are reserved." },
+    { q: "Which address always means 'this computer itself' (loopback)?",
+      opts: ["0.0.0.0", "192.168.1.1", "127.0.0.1", "255.255.255.255"], a: 2,
+      e: "<code>127.0.0.1</code> is the loopback address." },
+    { q: "What is the default subnet mask for a Class C network?",
+      opts: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], a: 2,
+      e: "Class C = /24 = 255.255.255.0 (three network octets)." },
+    { q: "Which well-known port is HTTPS?",
+      opts: ["22", "80", "443", "53"], a: 2,
+      e: "443 = HTTPS. (22 SSH, 80 HTTP, 53 DNS.)" },
+    { q: "For IP <code>197.23.45.10</code> with mask <code>255.255.255.0</code>, what is the broadcast address?",
+      opts: ["197.23.45.0", "197.23.45.1", "197.23.45.255", "197.23.255.255"], a: 2,
+      e: "/24 → only the last octet is host; set it all to 255 → 197.23.45.255." },
+    { q: "What does DHCP do?",
+      opts: ["Turns names into IP addresses", "Automatically hands out IP addresses to devices", "Encrypts web traffic", "Routes traffic to the internet"], a: 1,
+      e: "DHCP assigns IPs automatically; DNS is the one that resolves names." },
+  ]},
+  { id: "08", tag: "MCQ + Lab", title: "Terraform, IaC & Cloud", questions: [
+    { q: "What is the difference between <code>terraform plan</code> and <code>terraform apply</code>?",
+      opts: ["plan deletes infra; apply creates it", "plan previews changes; apply actually makes them", "They are the same", "plan runs first only once"], a: 1,
+      e: "<code>plan</code> is a preview (no changes); <code>apply</code> creates/updates the real infrastructure." },
+    { q: "Which Terraform command do you run first in a new project?",
+      opts: ["terraform apply", "terraform plan", "terraform init", "terraform validate"], a: 2,
+      e: "<code>init</code> downloads providers and sets up the backend." },
+    { q: "Which cloud service model is Gmail an example of?",
+      opts: ["IaaS", "PaaS", "SaaS", "On-prem"], a: 2,
+      e: "SaaS — you just use it; the provider manages everything." },
+    { q: "What is the role of the <code>terraform.tfstate</code> file?",
+      opts: ["It stores your cloud password", "It maps your config to the real infrastructure", "It is the provider plugin", "It logs apply output"], a: 1,
+      e: "State tracks what exists. Never edit it by hand and never commit it." },
+    { q: "Creating an Internet Gateway alone makes a subnet public. True?",
+      opts: ["True", "False — you also need a route 0.0.0.0/0 → IGW associated with the subnet", "True, if the subnet is in us-east-1", "Only for private subnets"], a: 1,
+      e: "A public subnet needs the IGW plus a route table entry <code>0.0.0.0/0 → IGW</code> associated with it." },
+    { q: "Security Groups are 'stateful'. What does that mean?",
+      opts: ["They store files", "If inbound traffic is allowed, the matching response is automatically allowed out", "They keep a log of all traffic", "They can't be changed once created"], a: 1,
+      e: "Stateful = return traffic for an allowed connection is permitted automatically." },
+    { q: "Terraform configuration is written in which language?",
+      opts: ["YAML", "JSON only", "HCL (HashiCorp Configuration Language)", "Python"], a: 2,
+      e: "Terraform uses HCL and is declarative." },
+  ]},
+  { id: "09", tag: "MCQ + Lab", title: "Helm", questions: [
+    { q: "Helm is best described as what?",
+      opts: ["A container runtime", "The package manager for Kubernetes", "A CI/CD server", "A monitoring tool"], a: 1,
+      e: "Helm packages Kubernetes YAML into reusable charts." },
+    { q: "In Helm terms, what is a 'Release'?",
+      opts: ["The chart's version number", "A running instance of a chart in a cluster", "The default values file", "A dependency chart"], a: 1,
+      e: "Chart = recipe, Release = the cooked meal (a deployed instance)." },
+    { q: "Which value source wins when they conflict?",
+      opts: ["values.yaml", "-f file", "--set", "They merge equally"], a: 2,
+      e: "Precedence low→high: values.yaml → -f file → --set. <code>--set</code> always wins." },
+    { q: "Which command installs a release if it's new and upgrades it if it already exists?",
+      opts: ["helm install", "helm upgrade", "helm upgrade --install", "helm apply"], a: 2,
+      e: "<code>upgrade --install</code> handles both — the CI-safe choice." },
+    { q: "In Chart.yaml, what is the difference between <code>version</code> and <code>appVersion</code>?",
+      opts: ["They must match", "version is the chart's version; appVersion is the app/image version", "version is the app; appVersion is the chart", "appVersion is optional metadata only"], a: 1,
+      e: "<code>version</code> = chart version (SemVer); <code>appVersion</code> = the app/image it deploys." },
+    { q: "What does <code>helm rollback my-rel 1</code> do?",
+      opts: ["Deletes revision 1", "Creates a new revision that matches revision 1", "Permanently reverts and erases history", "Downgrades Helm itself"], a: 1,
+      e: "Rollback makes a NEW revision matching the old one, so history is preserved." },
+    { q: "What is the main difference between Helm 2 and Helm 3?",
+      opts: ["Helm 3 needs a Tiller server pod", "Helm 3 removed Tiller and is client-only", "Helm 3 has no charts", "Helm 3 only works on AWS"], a: 1,
+      e: "Helm 3 dropped Tiller (a security risk) and uses your kubeconfig permissions." },
+  ]},
+  { id: "10", tag: "MCQ + Lab", title: "CI/CD & GitHub Actions", questions: [
+    { q: "What does Continuous Integration (CI) mean?",
+      opts: ["Automatically deploying to production", "Every push automatically builds and tests the code", "Manually approving releases", "Writing infrastructure as code"], a: 1,
+      e: "CI builds + tests on every push, catching problems early." },
+    { q: "What is the difference between Continuous Delivery and Continuous Deployment?",
+      opts: ["They are the same", "Delivery auto-deploys to prod; Deployment needs approval", "Delivery keeps it ready to deploy (manual release); Deployment auto-deploys to prod", "Deployment only runs tests"], a: 2,
+      e: "Delivery = always releasable, release is manual. Deployment = released to prod automatically." },
+    { q: "What is the correct GitHub Actions hierarchy?",
+      opts: ["Job → Workflow → Step", "Workflow → Job → Step", "Step → Job → Workflow", "Runner → Step → Job"], a: 1,
+      e: "A Workflow contains Jobs, which contain Steps; a Runner executes a Job." },
+    { q: "By default, how do jobs in a workflow run relative to each other?",
+      opts: ["Always sequentially", "In parallel unless linked with needs:", "Randomly", "Only one job is allowed"], a: 1,
+      e: "Jobs run in parallel; <code>needs:</code> makes one wait for another. (Steps run sequentially.)" },
+    { q: "Where must workflow YAML files live?",
+      opts: ["/workflows", ".github/workflows/", ".git/actions", "the repo root"], a: 1,
+      e: "GitHub Actions reads workflows from <code>.github/workflows/</code>." },
+    { q: "How do you reference a stored secret named API_KEY in a workflow?",
+      opts: ["$API_KEY", "${{ secrets.API_KEY }}", "secrets:API_KEY", "env.API_KEY"], a: 1,
+      e: "<code>${{ secrets.API_KEY }}</code>; never hardcode or echo secrets." },
+    { q: "What is the difference between Git storage and artifacts?",
+      opts: ["Git stores build output; artifacts store source", "Git stores source code; artifacts store build output", "They are identical", "Artifacts replace commits"], a: 1,
+      e: "Git = source code; artifacts = files a run produces (builds, reports)." },
+  ]},
+  { id: "11", tag: "MCQ", title: "Monitoring & GitOps", questions: [
+    { q: "Which of the three observability signals answers 'how much / how often' with numbers over time?",
+      opts: ["Logs", "Metrics", "Traces", "Alerts"], a: 1,
+      e: "Metrics = numeric time-series (CPU %, request counts). Logs = events; Traces = a request across services." },
+    { q: "What does Prometheus do, and how does it collect data?",
+      opts: ["Visualizes dashboards; pushes data", "Stores metrics; pulls/scrapes a /metrics endpoint", "Stores logs; receives pushes", "Runs traces; scrapes logs"], a: 1,
+      e: "Prometheus stores time-series metrics and uses a pull model, scraping <code>/metrics</code>." },
+    { q: "What is Grafana's main job?",
+      opts: ["Collect and store metrics", "Visualize metrics in dashboards", "Scrape endpoints", "Send alerts to Slack only"], a: 1,
+      e: "Prometheus collects/stores the data; Grafana visualizes it." },
+    { q: "In GitOps, what is the single source of truth for the desired state?",
+      opts: ["The cluster itself", "A Git repository", "The kubectl cache", "The Docker registry"], a: 1,
+      e: "GitOps treats Git as the desired state; a controller reconciles the cluster to match it." },
+    { q: "In GitOps with Argo CD, how do you scale or change an app?",
+      opts: ["kubectl scale directly", "Edit YAML in Git and push — the controller syncs it", "SSH into the node", "Restart Argo CD"], a: 1,
+      e: "You change Git and push; Argo CD reconciles. Manual kubectl changes get reverted by selfHeal." },
+    { q: "On which port does the Prometheus UI run by default?",
+      opts: ["3000", "8080", "9090", "443"], a: 2,
+      e: "Prometheus UI = 9090; Grafana = 3000." },
+    { q: "What does Argo CD's <code>selfHeal</code> do?",
+      opts: ["Restarts crashed pods", "Reverts manual cluster changes back to the Git state", "Deletes the Git repo", "Scales pods on CPU load"], a: 1,
+      e: "selfHeal reverts drift so the cluster always matches Git. (prune deletes what was removed from Git.)" },
+  ]},
+  { id: "12", tag: "MCQ", title: "DevSecOps", questions: [
+    { q: "What does SAST scan?",
+      opts: ["The running application", "Your source code, without executing it", "Third-party dependencies", "The built Docker image"], a: 1,
+      e: "SAST = Static Application Security Testing — analyzes source code without running it." },
+    { q: "What does SCA (Software Composition Analysis) check?",
+      opts: ["Your own source code", "Third-party dependencies for known CVEs", "Leaked credentials", "The OS packages in the image"], a: 1,
+      e: "SCA scans your dependencies/libraries for known vulnerabilities." },
+    { q: "Which tool scans the final Docker image for vulnerable packages?",
+      opts: ["CodeQL", "pip-audit", "Trivy", "Prometheus"], a: 2,
+      e: "Trivy scans container images for vulnerable OS/language packages." },
+    { q: "A real API key was committed to Git. Deleting the line is enough. True?",
+      opts: ["True", "False — you must revoke/rotate it, because it's still in Git history", "True, if you force-push", "Only if the repo is private"], a: 1,
+      e: "The secret stays in history, so it must be revoked/rotated, not just deleted." },
+    { q: "'Shift security left' means what?",
+      opts: ["Run security only after deployment", "Build security checks early into the CI/CD pipeline", "Move servers to the left region", "Disable scans to speed up builds"], a: 1,
+      e: "Shift left = catch security issues as early as possible, inside the pipeline." },
+    { q: "A security gate does what?",
+      opts: ["Encrypts the repository", "Turns scan results into pipeline decisions (pass → continue, fail → stop)", "Scans only secrets", "Stores artifacts"], a: 1,
+      e: "A gate enforces policy: a failing scan stops the pipeline." },
+    { q: "Which pairing is correct?",
+      opts: ["SAST = dependencies, SCA = source code", "SAST = source code, SCA = dependencies, Image scan = built image", "Secret scan = the image, Image scan = credentials", "SCA = the running app"], a: 1,
+      e: "SAST = your code, SCA = your dependencies, Image scan = the built image, Secret scan = leaked credentials." },
+  ]},
+];
+
+// ---- State ----
+let run = [];      // flat list of {classIdx, classId, classTitle, q}
+let pos = 0;
+let answered = false;
+let correctCount = 0;
+let perClass = {}; // classId -> {got, total, title, id}
+
+const $ = id => document.getElementById(id);
+const KEYS = ["A", "B", "C", "D"];
+
+// ---- Theme toggle ----
+(function initTheme() {
+  let saved = null;
+  try { saved = localStorage.getItem("mcq-theme"); } catch (e) {}
+  if (saved === "dark" || saved === "light") document.documentElement.setAttribute("data-theme", saved);
+  $("themeToggle").addEventListener("click", () => {
+    const root = document.documentElement;
+    const isDark = root.getAttribute("data-theme") === "dark" ||
+      (!root.getAttribute("data-theme") && matchMedia("(prefers-color-scheme: dark)").matches);
+    const next = isDark ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("mcq-theme", next); } catch (e) {}
+  });
+})();
+
+// ---- Build start screen ----
+function buildStart() {
+  const total = DATA.reduce((n, c) => n + c.questions.length, 0);
+  $("allCount").textContent = "· " + total + " questions";
+  const list = $("classList");
+  list.innerHTML = "";
+  DATA.forEach((c, i) => {
+    const b = document.createElement("button");
+    b.className = "classcard";
+    b.innerHTML =
+      '<span class="num">' + c.id + '</span>' +
+      '<span class="ctext"><strong>' + c.title + '</strong><span>' + c.questions.length + ' questions</span></span>' +
+      '<span class="tag">' + c.tag + '</span>';
+    b.addEventListener("click", () => startRun([i]));
+    list.appendChild(b);
+  });
+}
+
+function show(section) {
+  ["start", "quiz", "results"].forEach(s => $(s).hidden = (s !== section));
+  window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+}
+
+// ---- Start a run over the given class indexes ----
+function startRun(classIdxs) {
+  run = [];
+  classIdxs.forEach(ci => {
+    const c = DATA[ci];
+    c.questions.forEach(q => run.push({ classId: c.id, classTitle: c.title, classTag: c.tag, q }));
+  });
+  pos = 0; correctCount = 0; perClass = {};
+  run.forEach(item => {
+    if (!perClass[item.classId]) perClass[item.classId] = { got: 0, total: 0, title: item.classTitle, id: item.classId };
+    perClass[item.classId].total++;
+  });
+  show("quiz");
+  renderQuestion();
+}
+
+function renderQuestion() {
+  answered = false;
+  const item = run[pos];
+  const q = item.q;
+  $("classBadge").textContent = item.classId + " · " + item.classTitle;
+  $("counter").textContent = (pos + 1) + " / " + run.length;
+  $("barFill").style.width = ((pos) / run.length * 100) + "%";
+  $("qNum").textContent = "Question " + (pos + 1);
+  $("qText").innerHTML = q.q;
+  if (q.code) { $("qCode").textContent = q.code; $("qCode").hidden = false; }
+  else { $("qCode").hidden = true; }
+
+  const box = $("options");
+  box.innerHTML = "";
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement("button");
+    btn.className = "opt";
+    btn.innerHTML = '<span class="key">' + KEYS[i] + '</span><span class="label">' + opt + '</span>';
+    btn.addEventListener("click", () => choose(i));
+    box.appendChild(btn);
+  });
+  $("explain").hidden = true;
+  const next = $("nextBtn");
+  next.disabled = true;
+  next.textContent = (pos === run.length - 1) ? "See results →" : "Next →";
+}
+
+function choose(i) {
+  if (answered) return;
+  answered = true;
+  const item = run[pos];
+  const q = item.q;
+  const correct = q.a;
+  const btns = $("options").children;
+  for (let j = 0; j < btns.length; j++) {
+    btns[j].disabled = true;
+    if (j === correct) btns[j].classList.add("correct");
+    else if (j === i) btns[j].classList.add("wrong");
+    else btns[j].classList.add("dim");
+  }
+  const right = (i === correct);
+  if (right) { correctCount++; perClass[item.classId].got++; }
+  const ex = $("explain");
+  ex.innerHTML = '<span class="verdict ' + (right ? "ok" : "bad") + '">' +
+    (right ? "Correct." : "Not quite.") + '</span>' + q.e;
+  ex.hidden = false;
+  $("nextBtn").disabled = false;
+  $("barFill").style.width = ((pos + 1) / run.length * 100) + "%";
+}
+
+function next() {
+  if (!answered) return;
+  if (pos === run.length - 1) { renderResults(); return; }
+  pos++;
+  renderQuestion();
+}
+
+function renderResults() {
+  show("results");
+  const total = run.length;
+  const pct = Math.round(correctCount / total * 100);
+  $("scoreNum").textContent = correctCount;
+  $("scoreTotal").textContent = total;
+  $("scorePct").textContent = pct + "%";
+  let msg;
+  if (pct >= 90) msg = "Exam-ready. Sharp work.";
+  else if (pct >= 70) msg = "Solid — review the misses and you're there.";
+  else if (pct >= 50) msg = "Getting there. Re-read the weak classes below.";
+  else msg = "Early days — go back through the notes, then drill again.";
+  $("scoreMsg").textContent = msg;
+
+  const bd = $("breakdown");
+  bd.innerHTML = "";
+  Object.values(perClass).sort((a, b) => a.id.localeCompare(b.id)).forEach(c => {
+    const p = c.got / c.total;
+    const cls = p >= 0.7 ? "good" : p >= 0.5 ? "mid" : "low";
+    const row = document.createElement("div");
+    row.className = "brow";
+    row.innerHTML =
+      '<span class="bnum">' + c.id + '</span>' +
+      '<span class="bname">' + c.title + '</span>' +
+      '<span class="bscore ' + cls + '">' + c.got + '/' + c.total + '</span>';
+    bd.appendChild(row);
+  });
+}
+
+// ---- Wire up ----
+$("startAll").addEventListener("click", () => startRun(DATA.map((_, i) => i)));
+$("nextBtn").addEventListener("click", next);
+$("quitBtn").addEventListener("click", () => show("start"));
+$("retryBtn").addEventListener("click", () => {
+  const ids = [...new Set(run.map(r => r.classId))].map(id => DATA.findIndex(c => c.id === id));
+  startRun(ids);
+});
+$("menuBtn").addEventListener("click", () => show("start"));
+
+document.addEventListener("keydown", (e) => {
+  if (!$("quiz").hidden) {
+    if (!answered && ["1", "2", "3", "4"].includes(e.key)) {
+      const idx = +e.key - 1;
+      if (idx < run[pos].q.opts.length) choose(idx);
+    } else if (e.key === "Enter" && answered) {
+      next();
+    }
+  }
+});
+
+buildStart();
+show("start");
+</script>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
